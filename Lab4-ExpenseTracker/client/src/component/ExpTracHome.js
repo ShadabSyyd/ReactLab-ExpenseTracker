@@ -3,6 +3,7 @@ import { useEffect } from "react";
 import {useState} from "react";
 import {Container} from "react-bootstrap";
 import { ExpenseItemsLister } from "./expenseItemsLister";
+import { ExpenseCreator } from "./ExpenseCreator";
 
 const ExpTracHome= ()=>{
     const [exxpItems, setExpenseItems]=useState([]);
@@ -21,6 +22,8 @@ const ExpTracHome= ()=>{
     return(
         <Container>
             <h2>Expense Tracker App Main</h2>
+            <ExpenseCreator></ExpenseCreator>
+            <hr/>
             <ExpenseItemsLister expItems={exxpItems}></ExpenseItemsLister>
         </Container> 
     );
