@@ -7,4 +7,13 @@ const getAllExpenseitems =async ()=>{
     return getDetails.data;
 }
 
-export {getAllExpenseitems}
+const postCreateExpenseItems=(newExpenseItem)=>{
+    const postURL="http://localhost:4000/expensiva";
+
+    axios.post(postURL, newExpenseItem, {
+        headers: {
+            'Content-Type':'application/json'
+        }
+    });
+}
+export {getAllExpenseitems, postCreateExpenseItems}

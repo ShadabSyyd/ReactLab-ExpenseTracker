@@ -6,7 +6,7 @@ import { ExpenseItemsLister } from "./expenseItemsLister";
 import { ExpenseCreator } from "./ExpenseCreator";
 
 const ExpTracHome= ()=>{
-    const [exxpItems, setExpenseItems]=useState([]);
+    const [mainExxpItems, setExpenseItems]=useState([]);
 
     useEffect(()=>{
         const getExpenseItemsInvoker= async ()=>{
@@ -22,9 +22,9 @@ const ExpTracHome= ()=>{
     return(
         <Container>
             <h2>Expense Tracker App Main</h2>
-            <ExpenseCreator></ExpenseCreator>
+            <ExpenseCreator expItemsII={mainExxpItems}></ExpenseCreator>
             <hr/>
-            <ExpenseItemsLister expItems={exxpItems}></ExpenseItemsLister>
+            <ExpenseItemsLister expItems={mainExxpItems}></ExpenseItemsLister>
         </Container> 
     );
 };
