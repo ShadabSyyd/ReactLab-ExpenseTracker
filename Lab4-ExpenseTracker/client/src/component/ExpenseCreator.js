@@ -4,6 +4,8 @@ import Modal from "react-bootstrap/Modal"
 // import {Modal} from "react-bootstrap";
 import Form from "react-bootstrap/Form"
 import { getAllPayeeName } from "../services/expenses-utils";
+import { useRef } from "react";
+import { postMCreateExpenseItems } from "../services/serverServiceAxios";
 
 const ExpenseCreator = ({expItemsII}) => {
     const [show, setShow] = useState(false);
@@ -12,17 +14,40 @@ const ExpenseCreator = ({expItemsII}) => {
 
     const payeeNameArray= getAllPayeeName(expItemsII);
     // console.log(expItemsII);
+
+    const expenseDescRef=useRef(null);
+    const payeeNameRef=useRef(null);
+    const priceRef=useRef(null);
+    const dateRef=useRef(null);
+    
+    const handleNewExpenseCreation=async (event)=>{
+        const expDescription1=expenseDescRef.current.value;
+        const payeeName1= payeeNameRef.current.value;
+        const price1= priceRef.current.value;
+        const date1= new Date(dateRef.current.value);
+
+        const mergingExpenseItemExpensiva={
+            expenseDescription: expDescription1,
+            payeeName: payeeName1,
+            price: price1,
+            date: date1            
+        }
+        
+        const response= await postMCreateExpenseItems(mergingExpenseItemExpensiva);
+        console.log("response is:"+ JSON.stringify(response));
+        handleClose();
+    }
     const formToAddDetails = () => {
         return (
-            <Form>
+            <Form onSubmit={handleNewExpenseCreation}>
                 <Form.Group className="mb-3" controlId="expenseDescription">
                     <Form.Label>Expense Description</Form.Label>
-                    <Form.Control type="Text" placeholder="Enter Description" />
+                    <Form.Control type="Text" placeholder="Enter Description" ref={expenseDescRef}/>
                 </Form.Group>
 
                 <Form.Group className="mb-3" controlId="namePayee">
                     <Form.Label>Name</Form.Label>
-                    <Form.Select aria-label="Default select example">
+                    <Form.Select aria-label="Default select example" ref={payeeNameRef}>
                         <option>Open this select menu</option>
                         {
                             payeeNameArray.map((pName)=>{
@@ -46,13 +71,13 @@ const ExpenseCreator = ({expItemsII}) => {
 
                 <Form.Group className="mb-3" controlId="price">
                     <Form.Label>Price</Form.Label>
-                    <Form.Control type="number" placeholder="0" />
+                    <Form.Control type="number" placeholder="Enter the price" ref={priceRef}/>
                     <Form.Text className="text-muted"></Form.Text>
                 </Form.Group>
 
                 <Form.Group className="mb-3" controlId="expenseDate">
                     <Form.Label>Date</Form.Label>
-                    <Form.Control type="Date" />
+                    <Form.Control type="Date" ref={dateRef}/>
                     <Form.Text className="text-muted"></Form.Text>
                 </Form.Group>
 
