@@ -4,6 +4,7 @@ import {useState} from "react";
 import {Container} from "react-bootstrap";
 import { ExpenseItemsLister } from "./expenseItemsLister";
 import { ExpenseCreator } from "./ExpenseCreator";
+import { ExpenseSummary } from "./ExpenseSummary";
 
 const ExpTracHome= ()=>{
     const [mainExxpItems, setExpenseItems]=useState([]);
@@ -25,6 +26,7 @@ const ExpTracHome= ()=>{
             <ExpenseCreator expItemsII={mainExxpItems}></ExpenseCreator>
             <hr/>
             <ExpenseItemsLister expItems={mainExxpItems}></ExpenseItemsLister>
+            <ExpenseSummary expenseItems2={mainExxpItems}></ExpenseSummary>
         </Container> 
     );
 };

@@ -20,17 +20,22 @@ const ExpenseCreator = ({expItemsII}) => {
     const priceRef=useRef(null);
     const dateRef=useRef(null);
     
+    const generateID=()=>{
+        return Math.floor(Math.random() * 1000);
+    }
     const handleNewExpenseCreation=async (event)=>{
         const expDescription1=expenseDescRef.current.value;
         const payeeName1= payeeNameRef.current.value;
-        const price1= priceRef.current.value;
+        const price1= parseFloat(priceRef.current.value);
         const date1= new Date(dateRef.current.value);
+        const newId= generateID();
 
         const mergingExpenseItemExpensiva={
+            id: newId,
             expenseDescription: expDescription1,
             payeeName: payeeName1,
             price: price1,
-            date: date1            
+            date: date1
         }
         
         const response= await postMCreateExpenseItems(mergingExpenseItemExpensiva);
